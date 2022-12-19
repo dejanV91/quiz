@@ -45,13 +45,15 @@ const AppProvider = ({ children }) => {
   };
 
   const nextQuestion = () => {
-    if (index >= questions.length - 1) {
-      setIsModalOpen(true);
-      setWaiting(true);
-      setIndex(0);
-    } else {
-      setIndex((oldIndex) => oldIndex + 1);
-    }
+    setIndex((oldIndex) => {
+      const index = oldIndex + 1;
+      if (index > questions.length - 1) {
+        isModalOpen(true);
+        return 0;
+      } else {
+        return index;
+      }
+    });
   };
 
   useEffect(() => {
