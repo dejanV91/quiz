@@ -12,6 +12,8 @@ function App() {
   if (loading) {
     return <div className="loading"></div>;
   }
+  return <main>quiz questions</main>;
+  // const { correct_answer } = questions[0];
 }
 
 export default App;

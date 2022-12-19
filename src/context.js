@@ -16,7 +16,7 @@ const tempUrl =
 const AppContext = React.createContext();
 
 const AppProvider = ({ children }) => {
-  const [waiting, setWaiting] = useState(false);
+  const [waiting, setWaiting] = useState(true);
   const [loading, setLoading] = useState(false);
   const [questions, setQuestions] = useState([]);
   const [index, setIndex] = useState(0);
@@ -27,11 +27,18 @@ const AppProvider = ({ children }) => {
 
   const fetchQuestions = async () => {
     setLoading(true);
-    const response = await axios(tempUrl);
+    setWaiting(false);
+    const response = await axios(tempUrl).catch((error) => console.log(error));
     if (response) {
       const data = response.data.results;
-      setQuestions(...data);
-      setLoading(false);
+      if (data.length > 0) {
+        setLoading(false);
+        setWaiting(false);
+        setQuestions(data);
+      } else {
+        setWaiting(true);
+        setError(true);
+      }
     } else {
       console.log(error);
     }
