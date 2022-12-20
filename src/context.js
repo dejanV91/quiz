@@ -100,13 +100,10 @@ const AppProvider = ({ children }) => {
         nextQuestion,
         handleCheck,
         closeModal,
-<<<<<<< HEAD
-=======
         openModal,
         quiz,
         handleChange,
         handleSubmit,
->>>>>>> dev
       }}
     >
       {children}
