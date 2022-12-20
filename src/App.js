@@ -36,7 +36,7 @@ function App() {
               return (
                 <button
                   key={index}
-                  onClick={() => handleCheck(answer, correct_answer)}
+                  onClick={() => handleCheck(correct_answer === answer)}
                   className="answer-btn"
                   dangerouslySetInnerHTML={{ __html: answer }}
                 />

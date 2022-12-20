@@ -58,13 +58,11 @@ const AppProvider = ({ children }) => {
     });
   };
 
-  const handleCheck = (answer, correct_answer) => {
-    if (answer === correct_answer) {
-      setCorrect((oldCorrect) => oldCorrect + 1);
-      nextQuestion();
-    } else {
-      nextQuestion();
+  const handleCheck = (value) => {
+    if (value) {
+      setCorrect((oldValue) => oldValue + 1);
     }
+    nextQuestion();
   };
 
   useEffect(() => {
