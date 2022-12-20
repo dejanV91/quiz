@@ -1,5 +1,5 @@
 import axios from "axios";
-import React, { useState, useContext, useEffect } from "react";
+import React, { useState, useContext } from "react";
 
 const table = {
   sports: 21,
@@ -8,10 +8,6 @@ const table = {
 };
 
 const API_ENDPOINT = "https://opentdb.com/api.php?";
-
-const url = "";
-const tempUrl =
-  "https://opentdb.com/api.php?amount=10&category=21&difficulty=easy&type=multiple";
 
 const AppContext = React.createContext();
 
@@ -27,14 +23,13 @@ const AppProvider = ({ children }) => {
 
   const [quiz, setQuiz] = useState({
     amount: 10,
-    category: "sport",
+    category: "sports",
     difficulty: "easy",
   });
 
-  const fetchQuestions = async () => {
+  const fetchQuestions = async (url) => {
     setLoading(true);
-    setWaiting(false);
-    const response = await axios(tempUrl).catch((error) => console.log(error));
+    const response = await axios(url).catch((error) => console.log(error));
     if (response) {
       const data = response.data.results;
       if (data.length > 0) {
@@ -77,14 +72,24 @@ const AppProvider = ({ children }) => {
   const closeModal = () => {
     setIsModalOpen(false);
     setCorrect(0);
+    setError(false);
     setWaiting(true);
   };
 
-  const handleChange = (e) => {};
+  const handleChange = (e) => {
+    const data = e.currentTarget.name;
+    const value = e.target.value;
+
+    setQuiz({ ...quiz, [data]: value });
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    fetchQuestions();
+    const { amount, category, difficulty } = quiz;
+
+    const url = `${API_ENDPOINT}amount=${amount}&category=${table[category]}&difficulty=${difficulty}&type=multiple`;
+
+    fetchQuestions(url);
   };
 
   return (

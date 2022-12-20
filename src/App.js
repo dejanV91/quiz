@@ -18,7 +18,7 @@ function App() {
     return <SetupForm />;
   }
   if (loading) {
-    return <div className="loading"></div>;
+    return <Loading />;
   }
   const { question, correct_answer, incorrect_answers } = questions[index];
   const answers = [...incorrect_answers, correct_answer];
